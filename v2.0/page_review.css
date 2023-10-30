@@ -1,0 +1,43 @@
+ #fields {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 100%;
+ }
+
+#fields td, #fields th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#fields th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+.clicked {
+      border: 2px solid black;
+      background-color:blanchedalmond;
+}
+
+.selected {
+      border: 2px solid black;
+      background-color:gainsboro;
+}
+
+div:focus{
+    background-color: red;
+}
+
+
+.button {
+    background-color: #33ffff;
+  border-radius: 5px;
+  color: black;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}

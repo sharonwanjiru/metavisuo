@@ -1,0 +1,6 @@
+docs/jsdoc
+examples
+scratchpad
+test
+visual-test
+rollup.config.js
