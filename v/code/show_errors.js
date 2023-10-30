@@ -7,7 +7,7 @@ export class metavisuo_ext extends metavisuo {
     //Get the selected dbase from local storage
     selected_dbase;
     //
-    //Use the library dialogbox strategy to display the errors that are in the 
+    //Use the library dialogbox strategy to display the errors that are in the
     //current selected entity
     async show_errors() {
         //
@@ -26,11 +26,9 @@ export class metavisuo_ext extends metavisuo {
         //
         // Get the selected entity
         const entity = this.get_selected_entity();
-        console.log(entity);
         //
         // Get the entity errors
         const errors = entity.errors;
-        console.log(errors);
         //
         //Convert the errors to a string
         const report = this.convert_2_str(errors);
@@ -56,7 +54,7 @@ export class metavisuo_ext extends metavisuo {
             const entity = entities[selected];
             //
             // Check if the entity has the "selected" class
-            if (entity.proxy.className === 'entity selected') {
+            if (entity.proxy.classList.contains("selected")) {
                 return entity;
             }
         }
@@ -69,48 +67,43 @@ export class metavisuo_ext extends metavisuo {
     convert_2_str(errors) {
         //
         // If there is no error return
-        if (errors.length === 0) {
+        if (errors.length === 0)
             return "No errors found.";
-        }
         //
-        // Use the map function to extract the error messages 
-        const error_messages = errors.map((error) => {
-            //
-            // Get the actual message
-            const error_message = error.message;
-            //
-            // Get thestack race of the message
-            const stack_trace = error.stack;
-            //
-            // Concatenation of the messages
-            return `${error_message}\n${stack_trace}\n`;
-        }).join('\n');
-        return error_messages;
+        // Use the map function to extract the error messages
+        return errors.map(error => `
+        <details>
+            <summary>${error.message}</summary>
+            ${error.stack}
+        </details>
+    `)
+            .join("<br/>");
     }
 }
 class report_dialog extends dialog {
     //
     //Define a class constructor
     constructor(report) {
-        super(undefined, report);
+        super({ url: "./show_errors.html", anchor: document.body }, report);
     }
     //
     // Saving data to a database
     async save(input) {
-        return 'ok';
+        return "ok";
     }
     //
     // Reads and returns data from a dialog
     async read() {
         //
-        throw new Error('Read not expected');
+        throw new Error("Read not expected");
     }
-    async onopen() {
+    //Override the populate dialog option
+    populate(data) {
         //
+        // Get the error reporting element 
+        const element = this.get_element("my_error_report");
         //
-        const report = this.data_original;
-        //
-        //
-        this.visual.innerHTML = report;
+        // Insert the report to the element
+        element.innerHTML = data;
     }
 }
